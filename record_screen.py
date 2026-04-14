@@ -4,7 +4,7 @@ import numpy as np
 import cv2
 
 # Find window (change title!)
-window = gw.getWindowsWithTitle("League of Legends")[0]
+window = gw.getWindowsWithTitle("League of Legends (TM) Client")[0]
 
 # Get window position
 left, top = window.left, window.top
@@ -24,6 +24,10 @@ while True:
     img = sct.grab(monitor)
     frame = np.array(img)
     frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
+
+     # Resize (scale down to half)
+    scale = 0.3
+    frame = cv2.resize(frame, (0, 0), fx=scale, fy=scale)
 
     cv2.imshow("Window Capture", frame)
 
