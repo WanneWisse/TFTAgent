@@ -1,37 +1,33 @@
-import cv2
-import numpy as np
+import pygetwindow as gw
 from mss import mss
+import numpy as np
+import cv2
+
+# Find window (change title!)
+window = gw.getWindowsWithTitle("League of Legends")[0]
+
+# Get window position
+left, top = window.left, window.top
+width, height = window.width, window.height
+
+
+monitor = {
+    "top": top,
+    "left": left,
+    "width": width,
+    "height": height
+}
 
 sct = mss()
-
-# Pick monitor (change this index!)
-monitor_number = 2  # 1 = primary screen, 2 = second screen
-
-monitor = sct.monitors[monitor_number]
-
-# Video writer setup
-fourcc = cv2.VideoWriter_fourcc(*"XVID")
-out = cv2.VideoWriter(
-    "screen_record.avi",
-    fourcc,
-    20.0,
-    (monitor["width"], monitor["height"])
-)
-
-print(f"Recording monitor {monitor_number}... Press 'q' to stop.")
 
 while True:
     img = sct.grab(monitor)
     frame = np.array(img)
-
-    # Convert BGRA → BGR
     frame = cv2.cvtColor(frame, cv2.COLOR_BGRA2BGR)
 
-    out.write(frame)
-    cv2.imshow("Recording", frame)
+    cv2.imshow("Window Capture", frame)
 
-    if cv2.waitKey(1) & 0xFF == ord("q"):
+    if cv2.waitKey(1) == ord("q"):
         break
 
-out.release()
 cv2.destroyAllWindows()
