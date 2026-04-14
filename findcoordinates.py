@@ -14,7 +14,7 @@ if ret:
     cv2.imshow("Frame 100", frame)
     cv2.setMouseCallback("Frame 100", mouse_click)    
     cv2.waitKey(0)
-
+    
 ret, frame = cap.read()
 
 
