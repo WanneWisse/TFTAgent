@@ -40,7 +40,7 @@ while True:
     # Resize frame
     frame = cv2.resize(frame, (out_width, out_height))
 
-    showFrame(frame,0.3)
+    #showFrame(frame,0.3)
     # Write to file
     out.write(frame)
     
